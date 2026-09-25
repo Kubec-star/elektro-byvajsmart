@@ -565,10 +565,16 @@ $('#form').addEventListener('submit',async e=>{
   odpovede:odp.join(' | '),zaujem_aj_o:aj,meno:f.meno.value.trim(),telefon:f.telefon.value.trim(),email:f.email.value.trim(),mesto:f.mesto.value.trim(),poznamka:f.poznamka.value.trim(),event_id:eventId,...povod(),
   suhlas:'Suhlas so spracovanim osobnych udajov udeleny odoslanim formulara (elektro sluzby ByvajSmart)'};
  const btn=$('#fbtn');btn.disabled=true;btn.textContent='Odosielam';
- if(CFG.crmEndpoint){const c={...payload};delete c.access_key;fetch(CFG.crmEndpoint,{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams(c).toString(),keepalive:true}).catch(()=>{})}
- try{const r=await fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify(payload)});const d=await r.json();if(!d.success)throw 0;
+ // 1) CRM = hlavné miesto, kam dopyt ide (povoľuje CORS, vracia {ok:true})
+ const crm={...payload};delete crm.access_key;
+ let ok=false;
+ try{const r=await fetch(CFG.crmEndpoint,{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams(crm).toString(),keepalive:true});
+  const d=await r.json().catch(()=>({}));ok=r.ok&&d.ok!==false}catch(x){ok=false}
+ // 2) kópia na e-mail cez Web3Forms – bez čakania na odpoveď (služba neposiela CORS hlavičky)
+ try{const fd=new FormData();Object.entries(payload).forEach(([k,v])=>fd.append(k,v??''));fetch('https://api.web3forms.com/submit',{method:'POST',body:fd,mode:'no-cors',keepalive:true}).catch(()=>{})}catch(x){}
+ if(ok){
   f.style.display='none';const dn=$('#done');dn.classList.add('on');dn.focus();$('#formBox').scrollIntoView({behavior:'smooth',block:'center'});track('Lead',{content_name:s.id,content_category:'elektro'},eventId)
- }catch(x){btn.disabled=false;btn.textContent='Odoslať znova';err.innerHTML='Dopyt sa nepodarilo odoslať. Skúste to znova alebo zavolajte na <a href="tel:+421940984016">0940 984 016</a>.'}
+ }else{btn.disabled=false;btn.textContent='Odoslať znova';err.innerHTML='Dopyt sa nepodarilo odoslať. Skúste to znova alebo zavolajte na <a href="tel:+421940984016">0940 984 016</a>.'}
 });
 
 function loadPixel(){if(window.fbq||!CFG.pixelId)return;!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init',CFG.pixelId);fbq('track','PageView');if(cur)fbq('track','ViewContent',{content_name:cur.id})}
