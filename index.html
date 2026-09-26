@@ -401,7 +401,6 @@ footer a:hover{color:var(--blue)}
 
 <script>
 const CFG={
-  web3formsKey:'a4356a14-5650-4fe0-88bd-593a5170e4a3',
   crmEndpoint:'https://byvajsmart-crm-production.up.railway.app/api/form?token=df93189b27e30bdfdadcab16b4d34265&firma=elektro',
   pixelId:'1036804018869472',
   partner:'Elektrohouse'
@@ -561,17 +560,15 @@ $('#form').addEventListener('submit',async e=>{
  const odp=s.q.map((q,i)=>{const v=$$(`[name="q${i}"]:checked`,f).map(x=>x.value).join(', ');return v?`${q[0]}: ${v}`:''}).filter(Boolean);
  const aj=$$('[name="aj"]:checked',f).map(x=>x.value).join(', ');
  const eventId='eh-'+Date.now()+'-'+Math.random().toString(36).slice(2,8);
- const payload={access_key:CFG.web3formsKey,subject:`Nový dopyt: ${s.name} (elektro)`,from_name:'ByvajSmart elektro služby',sluzba:s.name,sluzba_id:s.id,partner:CFG.partner,typ_dopytu:'elektro',
+ const payload={subject:`Nový dopyt: ${s.name} (elektro)`,from_name:'ByvajSmart elektro služby',sluzba:s.name,sluzba_id:s.id,partner:CFG.partner,typ_dopytu:'elektro',
   odpovede:odp.join(' | '),zaujem_aj_o:aj,meno:f.meno.value.trim(),telefon:f.telefon.value.trim(),email:f.email.value.trim(),mesto:f.mesto.value.trim(),poznamka:f.poznamka.value.trim(),event_id:eventId,...povod(),
   suhlas:'Suhlas so spracovanim osobnych udajov udeleny odoslanim formulara (elektro sluzby ByvajSmart)'};
  const btn=$('#fbtn');btn.disabled=true;btn.textContent='Odosielam';
- // 1) CRM = hlavné miesto, kam dopyt ide (povoľuje CORS, vracia {ok:true})
- const crm={...payload};delete crm.access_key;
+ // dopyt ide do CRM (firma elektro); mail na info@byvajsmart.sk posiela CRM
+ const crm=payload;
  let ok=false;
  try{const r=await fetch(CFG.crmEndpoint,{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams(crm).toString(),keepalive:true});
   const d=await r.json().catch(()=>({}));ok=r.ok&&d.ok!==false}catch(x){ok=false}
- // 2) kópia na e-mail cez Web3Forms – bez čakania na odpoveď (služba neposiela CORS hlavičky)
- try{const fd=new FormData();Object.entries(payload).forEach(([k,v])=>fd.append(k,v??''));fetch('https://api.web3forms.com/submit',{method:'POST',body:fd,mode:'no-cors',keepalive:true}).catch(()=>{})}catch(x){}
  if(ok){
   f.style.display='none';const dn=$('#done');dn.classList.add('on');dn.focus();$('#formBox').scrollIntoView({behavior:'smooth',block:'center'});track('Lead',{content_name:s.id,content_category:'elektro'},eventId)
  }else{btn.disabled=false;btn.textContent='Odoslať znova';err.innerHTML='Dopyt sa nepodarilo odoslať. Skúste to znova alebo zavolajte na <a href="tel:+421940984016">0940 984 016</a>.'}
