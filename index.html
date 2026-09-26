@@ -223,6 +223,7 @@ footer a:hover{color:var(--blue)}
 .fld{margin-bottom:12px}
 .fld label{display:block;font-weight:600;font-size:14px;margin-bottom:6px}
 .fld label span{font-weight:400;color:var(--ink3)}
+.fld.fq{margin-bottom:20px}.fld.fq label{font-size:16px;margin-bottom:10px}
 .fld input,.fld textarea{width:100%;background:#fff;border:0;box-shadow:inset 0 0 0 1px var(--line);border-radius:12px;padding:14px 15px;font-size:16px;outline:none;transition:box-shadow .15s}
 .fld input:focus,.fld textarea:focus{box-shadow:inset 0 0 0 2px var(--blue)}
 .fld textarea{min-height:90px;resize:vertical}
@@ -409,7 +410,11 @@ const S=[
  {id:'fotovoltika',name:'Fotovoltika',cat:'Energia',a:'#C77700',top:1,short:'Vlastná elektrina zo strechy, s batériou aj bez.',
   lead:'Navrhneme výkon podľa vašej spotreby a strechy. Panely namontujeme, zapojíme a odovzdáme s revíziou.',
   b:['Návrh podľa vašej skutočnej spotreby','S batériou aj so záložným napájaním','Pripravené na wallbox a tepelné čerpadlo','Montáž na kľúč od návrhu po spustenie'],
-  q:[['Typ objektu',['Rodinný dom','Firma alebo prevádzka','Chata','Iné']],['Mesačný účet za elektrinu',['do 50 €','50 až 100 €','100 až 200 €','nad 200 €']],['Chcete batériu?',['Áno','Nie','Poraďte mi']],['Strecha',['Šikmá','Rovná','Neviem']]],r:['wallbox','rozvadzace','elektricke-vykurovanie']},
+  q:[['Typ objektu',['Rodinný dom','Firma alebo prevádzka','Chata','Trvalá ostrovná prevádzka','Iné']],['Mesačný účet za elektrinu',['do 50 €','50 až 100 €','100 až 200 €','nad 200 €']],['Spotreba za rok v kWh alebo EIC kód','text','napr. 4 500 kWh alebo EIC kód z faktúry'],['Chcete batériu?',['Áno','Nie','Poraďte mi']],['Strecha',['Šikmá','Rovná']]],r:['zalozne-napajanie','wallbox','elektricke-vykurovanie'],x:['Tepelné čerpadlo','Klimatizácia']},
+ {id:'zalozne-napajanie',name:'Záložné napájanie',cat:'Energia',a:'#A15C07',short:'Batéria, ktorá drží dom v chode, keď vypadne prúd.',
+  lead:'Keď vypadne prúd, dôležité okruhy bežia ďalej z batérie. Navrhneme, čo má fungovať, systém zapojíme a odovzdáme s revíziou.',
+  b:['Kúrenie, chladnička aj internet počas výpadku','Samostatne aj s fotovoltikou','Návrh podľa toho, čo má fungovať','Montáž, nastavenie a revízia'],
+  q:[['Objekt',['Rodinný dom','Firma alebo prevádzka','Chata']],['Čo má fungovať pri výpadku?',['Celý dom','Len dôležité okruhy','Poraďte mi']],['Máte fotovoltiku?',['Áno','Nie','Plánujem']]],r:['fotovoltika','rozvadzace']},
  {id:'wallbox',name:'Wallbox a nabíjanie',cat:'Energia',a:'#15803D',top:1,short:'Nabíjačka pre elektromobil doma, s montážou a revíziou.',
   lead:'Auto nabité cez noc pred domom. Wallbox zapojíme s vlastným ističom a chráničom a odovzdáme s revíziou.',
   b:['Samostatný istič a chránič pre nabíjanie','Do garáže, pod prístrešok aj na fasádu','Revízia po zapojení','Prepojenie s fotovoltikou'],
@@ -470,7 +475,7 @@ const S=[
 const CATS=['Všetko','Energia','Elektroinštalácie','Komfort','Bezpečnosť','Stavba a revízie'];
 const STORY=[
  null,
- {k:'Krok 1 z 5',t:'Fotovoltika',p:'Panely vyrábajú elektrinu, keď svieti slnko. S batériou ju máte aj večer.',id:'fotovoltika',l:'Dopyt na fotovoltiku'},
+ {k:'Krok 1 z 5',t:'Fotovoltika',p:'Buďte sebestační – vyrábajte energiu a skladujte ju v batériách.',id:'fotovoltika',l:'Dopyt na fotovoltiku'},
  {k:'Krok 2 z 5',t:'Nový rozvádzač',p:'Všetko ide cez rozvádzač. Nový s ističmi a chráničmi zvládne fotovoltiku, klímu aj nabíjanie auta.',id:'rozvadzace',l:'Dopyt na rozvádzač'},
  {k:'Krok 3 z 5',t:'Wallbox',p:'Auto sa nabíja pred domom. Cez deň aj zo strechy.',id:'wallbox',l:'Dopyt na wallbox'},
  {k:'Krok 4 z 5',t:'Osvetlenie',p:'Svetlo v dome aj v záhrade, navrhnuté a namontované na kľúč.',id:'osvetlenie',l:'Dopyt na osvetlenie'},
@@ -532,8 +537,11 @@ function showService(s){
  $('#svBens').innerHTML=s.b.map(b=>`<li>${CHECK}<span>${b}</span></li>`).join('');
  $('#fTitle').textContent=`Dopyt: ${s.name.toLowerCase()}`;
  const rel=(s.r||[]).map(id=>S.find(x=>x.id===id)).filter(Boolean);
- let h='';s.q.forEach((q,i)=>{h+=`<fieldset class="fq"><legend>${q[0]}${q[2]?' <small>(môžete viac)</small>':''}</legend><div class="opts">${q[1].map(o=>`<label class="opt"><input type="${q[2]?'checkbox':'radio'}" name="q${i}" value="${o}"><span>${o}</span></label>`).join('')}</div></fieldset>`});
- if(rel.length)h+=`<fieldset class="fq"><legend>Mám záujem aj o <small>(nepovinné)</small></legend><div class="opts">${rel.map(r=>`<label class="opt"><input type="checkbox" name="aj" value="${r.name}"><span>${r.name}</span></label>`).join('')}</div></fieldset>`;
+ let h='';s.q.forEach((q,i)=>{h+=q[1]==='text'
+  ?`<div class="fld fq"><label for="q${i}">${q[0]} <span>(nepovinné)</span></label><input id="q${i}" name="q${i}" placeholder="${q[2]||''}" maxlength="80"></div>`
+  :`<fieldset class="fq"><legend>${q[0]}${q[2]?' <small>(môžete viac)</small>':''}</legend><div class="opts">${q[1].map(o=>`<label class="opt"><input type="${q[2]?'checkbox':'radio'}" name="q${i}" value="${o}"><span>${o}</span></label>`).join('')}</div></fieldset>`});
+ const aj=[...rel.map(r=>r.name),...(s.x||[])];
+ if(aj.length)h+=`<fieldset class="fq"><legend>Mám záujem aj o <small>(nepovinné)</small></legend><div class="opts">${aj.map(n=>`<label class="opt"><input type="checkbox" name="aj" value="${n}"><span>${n}</span></label>`).join('')}</div></fieldset>`;
  $('#fqs').innerHTML=h;$('#form').reset();$('#form').style.display='';$('#done').classList.remove('on');$('#ferr').textContent='';$('#fbtn').disabled=false;$('#fbtn').textContent='Odoslať dopyt';
  $('#svRel').innerHTML=rel.length?`<h3>Často spolu s touto službou</h3><div>${rel.map(r=>`<a href="#/${r.id}">${r.name}</a>`).join('')}</div>`:'';
  track('ViewContent',{content_name:s.id});
@@ -557,7 +565,7 @@ $('#form').addEventListener('submit',async e=>{
  for(const[k,m]of[['meno','Doplňte meno a priezvisko.'],['telefon','Doplňte telefón, aby sme vám vedeli zavolať.'],['mesto','Doplňte obec alebo mesto.']]){if(!f[k].value.trim()){err.textContent=m;f[k].focus();return}}
  if(f.telefon.value.replace(/\D/g,'').length<9){err.textContent='Telefónne číslo má mať aspoň 9 číslic.';f.telefon.focus();return}
  if(f.email.value&&!/^\S+@\S+\.\S+$/.test(f.email.value)){err.textContent='E-mail nie je v správnom tvare.';f.email.focus();return}
- const odp=s.q.map((q,i)=>{const v=$$(`[name="q${i}"]:checked`,f).map(x=>x.value).join(', ');return v?`${q[0]}: ${v}`:''}).filter(Boolean);
+ const odp=s.q.map((q,i)=>{const v=q[1]==='text'?f[`q${i}`].value.trim():$$(`[name="q${i}"]:checked`,f).map(x=>x.value).join(', ');return v?`${q[0]}: ${v}`:''}).filter(Boolean);
  const aj=$$('[name="aj"]:checked',f).map(x=>x.value).join(', ');
  const eventId='eh-'+Date.now()+'-'+Math.random().toString(36).slice(2,8);
  const payload={subject:`Nový dopyt: ${s.name} (elektro)`,from_name:'ByvajSmart elektro služby',sluzba:s.name,sluzba_id:s.id,partner:CFG.partner,typ_dopytu:'elektro',
