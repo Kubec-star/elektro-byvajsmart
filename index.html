@@ -44,9 +44,9 @@ h1,h2,h3{font-family:var(--h);font-weight:700;letter-spacing:-.022em;line-height
 .top{position:fixed;inset:0 0 auto;z-index:40;transition:background .3s,box-shadow .3s}
 .top .wrap{display:flex;align-items:center;justify-content:space-between;height:116px;gap:20px}
 .top.solid{background:rgba(246,248,251,.94);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 1px 0 var(--line)}
-.logo{flex:none;display:block;border-radius:50%;background:#fff;padding:4px;box-shadow:0 4px 18px rgba(16,32,56,.22)}
-.logo img{width:92px;height:92px;border-radius:50%}
-@media(max-width:560px){.logo img{width:64px;height:64px}.logo{padding:3px}
+.logo{flex:none;display:block;align-self:flex-start;margin-top:10px;border-radius:50%;background:#fff;padding:4px;box-shadow:0 4px 18px rgba(16,32,56,.22)}
+.logo img{width:132px;height:132px;border-radius:50%}
+@media(max-width:560px){.logo img{width:92px;height:92px}.logo{padding:3px;margin-top:8px}
   .nav .btn{min-height:42px;padding:0 14px;font-size:14px;white-space:nowrap}}
 
 .nav{display:flex;align-items:center;gap:6px}
@@ -67,7 +67,7 @@ h1,h2,h3{font-family:var(--h);font-weight:700;letter-spacing:-.022em;line-height
 .frame img{width:100%;height:100%;object-fit:cover;object-position:50% 62%}
 .frame.f0{opacity:1}
 .scrim{position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(10,20,35,.5) 0,rgba(10,20,35,.14) 42%,transparent 65%),linear-gradient(0deg,rgba(10,20,35,.42),transparent 38%),linear-gradient(180deg,rgba(10,20,35,.32),transparent 18%)}
-.hero-copy{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:150px 0 clamp(40px,10vh,110px);color:#fff;transition:opacity .5s,transform .5s var(--ease)}
+.hero-copy{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:176px 0 clamp(40px,10vh,110px);color:#fff;transition:opacity .5s,transform .5s var(--ease)}
 .hero-copy h1{font-size:clamp(34px,min(6.8vw,8.6vh),104px);max-width:12ch;text-wrap:balance;text-shadow:0 2px 40px rgba(0,0,0,.25)}
 .hero-copy p{max-width:520px;margin:clamp(12px,2.4vh,22px) 0 clamp(18px,3.6vh,32px);font-size:clamp(17px,1.5vw,20px);color:rgba(255,255,255,.93)}
 .hero-copy .acts{display:flex;gap:12px;flex-wrap:wrap}
@@ -91,7 +91,7 @@ h1,h2,h3{font-family:var(--h);font-weight:700;letter-spacing:-.022em;line-height
 .inset img{width:100%;height:100%;object-fit:cover}
 .inset.on{opacity:1;transform:translateY(-50%) scale(1)}
 @media(max-width:760px){.inset{top:96px;right:var(--gut);width:46vw;transform:none}.inset.on{transform:none}}
-.steps{position:absolute;right:var(--gut);top:132px;display:flex;flex-direction:column;gap:2px;opacity:0;transition:opacity .5s}
+.steps{position:absolute;right:var(--gut);top:160px;display:flex;flex-direction:column;gap:2px;opacity:0;transition:opacity .5s}
 .stage.moved .steps{opacity:1}
 .steps button{display:flex;align-items:center;gap:12px;justify-content:flex-end;background:none;border:0;cursor:pointer;color:rgba(255,255,255,.72);font:500 14px/1 var(--b);padding:7px 0;text-shadow:0 1px 10px rgba(0,0,0,.5)}
 .steps button i{width:26px;height:3px;border-radius:3px;background:rgba(255,255,255,.45);transition:width .4s var(--ease),background .3s}
@@ -196,7 +196,7 @@ footer a:hover{color:var(--blue)}
 .sv .pic .crumb{font-size:15px;opacity:.92}
 .sv .pic .crumb a{border-bottom:1px solid rgba(255,255,255,.5)}
 .sv .pic h1{font-size:clamp(44px,5.4vw,84px);margin-top:12px;max-width:11ch;text-wrap:balance}
-.sv .pane{padding:150px clamp(24px,5vw,72px) 80px;max-width:720px}
+.sv .pane{padding:176px clamp(24px,5vw,72px) 80px;max-width:720px}
 .sv .lead{font-size:clamp(18px,1.5vw,21px);color:var(--ink2)}
 .bens{list-style:none;margin:28px 0 8px;display:grid;gap:12px}
 .bens li{display:flex;gap:12px;align-items:flex-start}
@@ -265,7 +265,7 @@ footer a:hover{color:var(--blue)}
 
 <header class="top" id="top">
   <div class="wrap">
-    <a class="logo" href="#/" aria-label="Národný inštitút efektivity"><img src="img/pecat.png" alt="Národný inštitút efektivity" width="92" height="92"></a>
+    <a class="logo" href="#/" aria-label="Národný inštitút efektivity"><img src="img/pecat.png" alt="Národný inštitút efektivity" width="132" height="132"></a>
     <nav class="nav" aria-label="Hlavná navigácia">
       <a class="l" href="#/" data-go="sluzby">Služby</a>
       <a class="l" href="#/" data-go="postup">Ako to prebieha</a>
