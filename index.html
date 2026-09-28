@@ -3,16 +3,16 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Elektro služby pre dom a byt | ByvajSmart.sk</title>
+<title>Elektro služby pre dom a byt | Národný inštitút efektivity</title>
 <meta name="description" content="Fotovoltika, wallbox, nový rozvádzač, elektroinštalácie, smart home a ďalšie elektro služby. Vyberte službu, vyplňte krátky dopyt a do 24 hodín máte nezáväznú ponuku.">
-<meta property="og:title" content="Elektrina pre celý dom, od strechy po zásuvku | ByvajSmart.sk">
+<meta property="og:title" content="Elektrina pre celý dom, od strechy po zásuvku | Národný inštitút efektivity">
 <meta property="og:description" content="Vyberte službu, vyplňte krátky dopyt a do 24 hodín máte nezáväznú ponuku.">
 <meta property="og:image" content="img/dom-3.jpg">
 <meta name="theme-color" content="#F6F8FB">
-<link rel="icon" href="img/logo.png">
+<link rel="icon" href="img/pecat.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="preload" as="image" href="img/dom-0.jpg">
 <style>
 :root{
@@ -42,10 +42,16 @@ h1,h2,h3{font-family:var(--h);font-weight:700;letter-spacing:-.022em;line-height
 
 /* header */
 .top{position:fixed;inset:0 0 auto;z-index:40;transition:background .3s,box-shadow .3s}
-.top .wrap{display:flex;align-items:center;justify-content:space-between;height:76px;gap:20px}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;height:92px;gap:20px}
 .top.solid{background:rgba(246,248,251,.94);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 1px 0 var(--line)}
-.logo{background:#fff;border-radius:12px;padding:8px 12px;box-shadow:0 2px 10px rgba(16,32,56,.08)}
-.logo img{height:26px;width:auto}
+.logo{flex:none;display:flex;align-items:center;gap:14px;background:#fff;border-radius:16px;padding:8px 20px 8px 8px;box-shadow:0 2px 14px rgba(16,32,56,.10)}
+.logo img{width:64px;height:64px;border-radius:50%}
+.logo .nm{display:flex;flex-direction:column;font-family:'Libre Caslon Text',Georgia,'Times New Roman',serif;color:#0B2A4A;line-height:1.08;text-transform:uppercase;white-space:nowrap}
+.logo .nm b{font-weight:700;font-size:22px;letter-spacing:.05em}
+.logo .nm i{font-style:normal;font-weight:700;font-size:22px;letter-spacing:.285em;border-top:1.5px solid #C9A227;padding-top:5px;margin-top:5px}
+@media(max-width:560px){.logo{gap:8px;padding:5px 12px 5px 5px;border-radius:13px}.logo img{width:44px;height:44px}.logo .nm b{font-size:12.5px;letter-spacing:.02em}.logo .nm i{font-size:12.5px;letter-spacing:.19em;padding-top:3px;margin-top:3px}
+  .nav .btn{min-height:42px;padding:0 12px;font-size:13.5px;white-space:nowrap}}
+@media(max-width:380px){.nav .btn{display:none}}
 .nav{display:flex;align-items:center;gap:6px}
 .nav a.l{padding:10px 14px;border-radius:10px;font-weight:500}
 .nav a.l:hover{background:rgba(16,32,56,.06)}
@@ -64,7 +70,7 @@ h1,h2,h3{font-family:var(--h);font-weight:700;letter-spacing:-.022em;line-height
 .frame img{width:100%;height:100%;object-fit:cover;object-position:50% 62%}
 .frame.f0{opacity:1}
 .scrim{position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(10,20,35,.5) 0,rgba(10,20,35,.14) 42%,transparent 65%),linear-gradient(0deg,rgba(10,20,35,.42),transparent 38%),linear-gradient(180deg,rgba(10,20,35,.32),transparent 18%)}
-.hero-copy{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:112px 0 clamp(40px,10vh,110px);color:#fff;transition:opacity .5s,transform .5s var(--ease)}
+.hero-copy{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:132px 0 clamp(40px,10vh,110px);color:#fff;transition:opacity .5s,transform .5s var(--ease)}
 .hero-copy h1{font-size:clamp(34px,min(6.8vw,8.6vh),104px);max-width:12ch;text-wrap:balance;text-shadow:0 2px 40px rgba(0,0,0,.25)}
 .hero-copy p{max-width:520px;margin:clamp(12px,2.4vh,22px) 0 clamp(18px,3.6vh,32px);font-size:clamp(17px,1.5vw,20px);color:rgba(255,255,255,.93)}
 .hero-copy .acts{display:flex;gap:12px;flex-wrap:wrap}
@@ -88,7 +94,7 @@ h1,h2,h3{font-family:var(--h);font-weight:700;letter-spacing:-.022em;line-height
 .inset img{width:100%;height:100%;object-fit:cover}
 .inset.on{opacity:1;transform:translateY(-50%) scale(1)}
 @media(max-width:760px){.inset{top:96px;right:var(--gut);width:46vw;transform:none}.inset.on{transform:none}}
-.steps{position:absolute;right:var(--gut);top:104px;display:flex;flex-direction:column;gap:2px;opacity:0;transition:opacity .5s}
+.steps{position:absolute;right:var(--gut);top:118px;display:flex;flex-direction:column;gap:2px;opacity:0;transition:opacity .5s}
 .stage.moved .steps{opacity:1}
 .steps button{display:flex;align-items:center;gap:12px;justify-content:flex-end;background:none;border:0;cursor:pointer;color:rgba(255,255,255,.72);font:500 14px/1 var(--b);padding:7px 0;text-shadow:0 1px 10px rgba(0,0,0,.5)}
 .steps button i{width:26px;height:3px;border-radius:3px;background:rgba(255,255,255,.45);transition:width .4s var(--ease),background .3s}
@@ -193,7 +199,7 @@ footer a:hover{color:var(--blue)}
 .sv .pic .crumb{font-size:15px;opacity:.92}
 .sv .pic .crumb a{border-bottom:1px solid rgba(255,255,255,.5)}
 .sv .pic h1{font-size:clamp(44px,5.4vw,84px);margin-top:12px;max-width:11ch;text-wrap:balance}
-.sv .pane{padding:120px clamp(24px,5vw,72px) 80px;max-width:720px}
+.sv .pane{padding:136px clamp(24px,5vw,72px) 80px;max-width:720px}
 .sv .lead{font-size:clamp(18px,1.5vw,21px);color:var(--ink2)}
 .bens{list-style:none;margin:28px 0 8px;display:grid;gap:12px}
 .bens li{display:flex;gap:12px;align-items:flex-start}
@@ -262,7 +268,7 @@ footer a:hover{color:var(--blue)}
 
 <header class="top" id="top">
   <div class="wrap">
-    <a class="logo" href="#/" aria-label="ByvajSmart.sk"><img src="img/logo.png" alt="ByvajSmart.sk" width="134" height="26"></a>
+    <a class="logo" href="#/" aria-label="Národný inštitút efektivity"><img src="img/pecat.png" alt="" width="60" height="60"><span class="nm"><b>Národný inštitút</b><i>efektivity</i></span></a>
     <nav class="nav" aria-label="Hlavná navigácia">
       <a class="l" href="#/" data-go="sluzby">Služby</a>
       <a class="l" href="#/" data-go="postup">Ako to prebieha</a>
@@ -391,9 +397,9 @@ footer a:hover{color:var(--blue)}
 
 <footer>
   <div class="wrap">
-    <div>Národný inštitút efektivity s.r.o., ByvajSmart.sk</div>
+    <div>Národný inštitút efektivity s.r.o.</div>
     <div><a href="tel:+421940984016">0940 984 016</a><br><a href="mailto:info@byvajsmart.sk">info@byvajsmart.sk</a></div>
-    <div><a href="https://www.byvajsmart.sk/" target="_blank" rel="noopener">Klimatizácie a tepelné čerpadlá na ByvajSmart.sk</a><br><a href="https://www.byvajsmart.sk/podmienky-ochrany-osobnych-udajov/" target="_blank" rel="noopener">Ochrana osobných údajov</a>, <a href="#" id="ckOpen">cookies</a></div>
+    <div><a href="https://www.byvajsmart.sk/podmienky-ochrany-osobnych-udajov/" target="_blank" rel="noopener">Ochrana osobných údajov</a>, <a href="#" id="ckOpen">cookies</a></div>
   </div>
 </footer>
 
@@ -530,7 +536,7 @@ addEventListener('resize',story);
 
 let cur=null;
 function showService(s){
- cur=s;document.documentElement.style.setProperty('--acc',s.a);document.title=`${s.name}: nezáväzný dopyt | ByvajSmart.sk`;
+ cur=s;document.documentElement.style.setProperty('--acc',s.a);document.title=`${s.name}: nezáväzný dopyt | Národný inštitút efektivity`;
  $('#home').classList.remove('on');$('#svc').classList.add('on');scrollTo(0,0);header();
  const im=$('#svImg');im.classList.remove('in');im.onload=()=>requestAnimationFrame(()=>im.classList.add('in'));im.src=img(s.id);im.alt=s.name;
  $('#svCat').textContent=s.cat;$('#svH1').textContent=s.name;$('#svLead').textContent=s.lead;
@@ -547,7 +553,7 @@ function showService(s){
  track('ViewContent',{content_name:s.id});
 }
 let pend=null;
-function showHome(){document.documentElement.style.setProperty('--acc','#0B66BD');document.title='Elektro služby pre dom a byt | ByvajSmart.sk';cur=null;
+function showHome(){document.documentElement.style.setProperty('--acc','#0B66BD');document.title='Elektro služby pre dom a byt | Národný inštitút efektivity';cur=null;
  $('#svc').classList.remove('on');$('#home').classList.add('on');
  if(pend){const el=document.getElementById(pend);pend=null;requestAnimationFrame(()=>el.scrollIntoView())}else scrollTo(0,0);
  curStep=-1;story();header()}
@@ -568,9 +574,9 @@ $('#form').addEventListener('submit',async e=>{
  const odp=s.q.map((q,i)=>{const v=q[1]==='text'?f[`q${i}`].value.trim():$$(`[name="q${i}"]:checked`,f).map(x=>x.value).join(', ');return v?`${q[0]}: ${v}`:''}).filter(Boolean);
  const aj=$$('[name="aj"]:checked',f).map(x=>x.value).join(', ');
  const eventId='eh-'+Date.now()+'-'+Math.random().toString(36).slice(2,8);
- const payload={subject:`Nový dopyt: ${s.name} (elektro)`,from_name:'ByvajSmart elektro služby',sluzba:s.name,sluzba_id:s.id,partner:CFG.partner,typ_dopytu:'elektro',
+ const payload={subject:`Nový dopyt: ${s.name} (elektro)`,from_name:'Národný inštitút efektivity – elektro',sluzba:s.name,sluzba_id:s.id,partner:CFG.partner,typ_dopytu:'elektro',
   odpovede:odp.join(' | '),zaujem_aj_o:aj,meno:f.meno.value.trim(),telefon:f.telefon.value.trim(),email:f.email.value.trim(),mesto:f.mesto.value.trim(),poznamka:f.poznamka.value.trim(),event_id:eventId,...povod(),
-  suhlas:'Suhlas so spracovanim osobnych udajov udeleny odoslanim formulara (elektro sluzby ByvajSmart)'};
+  suhlas:'Suhlas so spracovanim osobnych udajov udeleny odoslanim formulara (elektro sluzby Narodny institut efektivity)'};
  const btn=$('#fbtn');btn.disabled=true;btn.textContent='Odosielam';
  // dopyt ide do CRM (firma elektro); mail na info@byvajsmart.sk posiela CRM
  const crm=payload;
