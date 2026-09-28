@@ -378,7 +378,7 @@ footer a:hover{color:var(--blue)}
           <div class="fld"><label for="f_pozn">Poznámka <span>(nepovinné)</span></label><textarea id="f_pozn" name="poznamka"></textarea></div>
           <p class="err" id="ferr" role="alert"></p>
           <button class="btn" type="submit" id="fbtn">Odoslať dopyt</button>
-          <p class="legal">Odoslaním súhlasíte so spracovaním osobných údajov na prípravu ponuky. <a href="https://www.byvajsmart.sk/podmienky-ochrany-osobnych-udajov/" target="_blank" rel="noopener">Ochrana osobných údajov</a></p>
+          <p class="legal">Údaje z formulára použijeme len na vybavenie vášho dopytu a odovzdáme ich montážnej firme, ktorá službu zrealizuje. Viac v <a href="ochrana-osobnych-udajov.html" target="_blank">zásadách ochrany osobných údajov</a>.</p>
         </form>
         <div class="done" id="done" tabindex="-1">
           <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="32" cy="32" r="29"/><path d="M19 33l9 9 17-19"/></svg>
@@ -394,14 +394,14 @@ footer a:hover{color:var(--blue)}
 
 <footer>
   <div class="wrap">
-    <div>Národný inštitút efektivity s.r.o.</div>
+    <div>Národný Inštitút Efektivity, s.r.o.<br>Kyselica 133, 930 30 Kyselica<br>IČO 52 650 022</div>
     <div><a href="tel:+421940984016">0940 984 016</a><br><a href="mailto:info@byvajsmart.sk">info@byvajsmart.sk</a></div>
-    <div><a href="https://www.byvajsmart.sk/podmienky-ochrany-osobnych-udajov/" target="_blank" rel="noopener">Ochrana osobných údajov</a>, <a href="#" id="ckOpen">cookies</a></div>
+    <div><a href="ochrana-osobnych-udajov.html">Ochrana osobných údajov</a>, <a href="#" id="ckOpen">cookies</a></div>
   </div>
 </footer>
 
 <div id="peek" aria-hidden="true"><img alt=""></div>
-<div id="ck" role="dialog" aria-label="Cookies"><b>Cookies</b><br>Používame nevyhnutné cookies. So súhlasom aj marketingové (Meta), aby sme vedeli, ktoré reklamy fungujú.<div><button id="ckN">Len nevyhnutné</button><button class="y" id="ckY">Súhlasím</button></div></div>
+<div id="ck" role="dialog" aria-label="Cookies"><b>Cookies</b><br>Používame nevyhnutné cookies. So súhlasom aj marketingové: Meta pixel a meranie odoslaných dopytov cez Meta (Facebook, Instagram), aby sme vedeli, ktoré reklamy fungujú. Súhlas môžete kedykoľvek zmeniť v pätičke. <a href="ochrana-osobnych-udajov.html">Viac</a><div><button id="ckN">Len nevyhnutné</button><button class="y" id="ckY">Súhlasím</button></div></div>
 
 <script>
 const CFG={
@@ -574,8 +574,8 @@ $('#form').addEventListener('submit',async e=>{
  const aj=$$('[name="aj"]:checked',f).map(x=>x.value).join(', ');
  const eventId='eh-'+Date.now()+'-'+Math.random().toString(36).slice(2,8);
  const payload={subject:`Nový dopyt: ${s.name} (elektro)`,from_name:'Národný inštitút efektivity – elektro',sluzba:s.name,sluzba_id:s.id,partner:CFG.partner,typ_dopytu:'elektro',
-  odpovede:odp.join(' | '),zaujem_aj_o:aj,meno:f.meno.value.trim(),telefon:f.telefon.value.trim(),email:f.email.value.trim(),mesto:f.mesto.value.trim(),poznamka:f.poznamka.value.trim(),event_id:eventId,...povod(),...metaId(),
-  suhlas:'Suhlas so spracovanim osobnych udajov udeleny odoslanim formulara (elektro sluzby Narodny institut efektivity)'};
+  odpovede:odp.join(' | '),zaujem_aj_o:aj,meno:f.meno.value.trim(),telefon:f.telefon.value.trim(),email:f.email.value.trim(),mesto:f.mesto.value.trim(),poznamka:f.poznamka.value.trim(),event_id:eventId,...povod(),...metaId(),suhlas_meta:(()=>{try{return localStorage.getItem('bs_ck')==='y'?'ano':'nie'}catch(e){return 'nie'}})(),
+  suhlas:'Informovany o spracuvani udajov na vybavenie dopytu (cl. 6 ods. 1 pism. b GDPR), nief.sk/ochrana-osobnych-udajov.html'};
  const btn=$('#fbtn');btn.disabled=true;btn.textContent='Odosielam';
  // dopyt ide do CRM (firma elektro); mail na info@byvajsmart.sk posiela CRM
  const crm=payload;
@@ -590,8 +590,10 @@ $('#form').addEventListener('submit',async e=>{
 function loadPixel(){if(window.fbq||!CFG.pixelId)return;!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init',CFG.pixelId);fbq('track','PageView');if(cur)fbq('track','ViewContent',{content_name:cur.id})}
 function track(ev,data,id){if(window.fbq)fbq('track',ev,data||{},id?{eventID:id}:undefined)}
 (function(){let v=null;try{v=localStorage.getItem('bs_ck')}catch(e){}if(v==='y')loadPixel();else if(!v)$('#ck').classList.add('on');
- const set=x=>{try{localStorage.setItem('bs_ck',x)}catch(e){}$('#ck').classList.remove('on');if(x==='y')loadPixel()};
- $('#ckY').onclick=()=>set('y');$('#ckN').onclick=()=>set('n');$('#ckOpen').onclick=e=>{e.preventDefault();$('#ck').classList.add('on')}})();
+ const set=x=>{let pred=null;try{pred=localStorage.getItem('bs_ck');localStorage.setItem('bs_ck',x)}catch(e){}$('#ck').classList.remove('on');if(x==='y')loadPixel();
+  // odvolanie súhlasu: zmazať cookies Mety a načítať stránku bez pixelu
+  if(x==='n'&&pred==='y'){['_fbp','_fbc'].forEach(n=>{document.cookie=n+'=;Max-Age=0;path=/';document.cookie=n+'=;Max-Age=0;path=/;domain=.'+location.hostname});location.reload()}};
+ $('#ckY').onclick=()=>set('y');$('#ckN').onclick=()=>set('n');$('#ckOpen').onclick=e=>{e.preventDefault();$('#ck').classList.add('on')};if(location.hash==='#cookies')$('#ck').classList.add('on')})();
 
 buildHome();route();story();header();
 </script>
