@@ -554,6 +554,8 @@ function showHome(){document.documentElement.style.setProperty('--acc','#0B66BD'
  $('#svc').classList.remove('on');$('#home').classList.add('on');
  if(pend){const el=document.getElementById(pend);pend=null;requestAnimationFrame(()=>el.scrollIntoView())}else scrollTo(0,0);
  curStep=-1;story();header()}
+/* identifikátory Mety pre server (Conversions API): _fbp/_fbc existujú len po súhlase s cookies; fbclid z reklamy ide vždy v povod() */
+function metaId(){const c=n=>(document.cookie.match('(?:^|; )'+n+'=([^;]*)')||[])[1]||'';return{fbp:c('_fbp'),fbc:c('_fbc'),user_agent:navigator.userAgent}}
 function route(){const id=(location.hash.match(/^#\/([\w-]+)/)||[])[1]||new URLSearchParams(location.search).get('sluzba');const s=S.find(x=>x.id===id);s?showService(s):showHome()}
 addEventListener('hashchange',route);
 document.addEventListener('click',e=>{const a=e.target.closest('[data-go]');if(!a)return;e.preventDefault();const t=a.dataset.go;
@@ -572,7 +574,7 @@ $('#form').addEventListener('submit',async e=>{
  const aj=$$('[name="aj"]:checked',f).map(x=>x.value).join(', ');
  const eventId='eh-'+Date.now()+'-'+Math.random().toString(36).slice(2,8);
  const payload={subject:`Nový dopyt: ${s.name} (elektro)`,from_name:'Národný inštitút efektivity – elektro',sluzba:s.name,sluzba_id:s.id,partner:CFG.partner,typ_dopytu:'elektro',
-  odpovede:odp.join(' | '),zaujem_aj_o:aj,meno:f.meno.value.trim(),telefon:f.telefon.value.trim(),email:f.email.value.trim(),mesto:f.mesto.value.trim(),poznamka:f.poznamka.value.trim(),event_id:eventId,...povod(),
+  odpovede:odp.join(' | '),zaujem_aj_o:aj,meno:f.meno.value.trim(),telefon:f.telefon.value.trim(),email:f.email.value.trim(),mesto:f.mesto.value.trim(),poznamka:f.poznamka.value.trim(),event_id:eventId,...povod(),...metaId(),
   suhlas:'Suhlas so spracovanim osobnych udajov udeleny odoslanim formulara (elektro sluzby Narodny institut efektivity)'};
  const btn=$('#fbtn');btn.disabled=true;btn.textContent='Odosielam';
  // dopyt ide do CRM (firma elektro); mail na info@byvajsmart.sk posiela CRM
