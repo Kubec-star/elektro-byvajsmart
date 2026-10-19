@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Elektro služby pre dom a byt | Národný inštitút efektivity</title>
-<meta name="description" content="Fotovoltika, wallbox, nový rozvádzač, elektroinštalácie, smart home a ďalšie elektro služby. Vyberte službu, vyplňte krátky dopyt a do 24 hodín máte nezáväznú ponuku.">
+<meta name="description" content="Klimatizácie s montážou, tepelné čerpadlá vzduch-vzduch, fotovoltika, wallbox, nový rozvádzač, elektroinštalácie, smart home a ďalšie elektro služby. Vyberte službu, vyplňte krátky dopyt a do 24 hodín máte nezáväznú ponuku.">
 <meta property="og:title" content="Elektrina pre celý dom, od strechy po zásuvku | Národný inštitút efektivity">
 <meta property="og:description" content="Vyberte službu, vyplňte krátky dopyt a do 24 hodín máte nezáväznú ponuku.">
 <meta property="og:image" content="img/dom-3.jpg">
@@ -221,6 +221,24 @@ footer a:hover{color:var(--blue)}
 .opt span:hover{box-shadow:inset 0 0 0 1px var(--ink3)}
 .opt input:checked+span{background:var(--acc);color:#fff;box-shadow:none}
 .opt input:focus-visible+span{outline:3px solid var(--blue);outline-offset:2px}
+.radd{padding:11px 14px;border-radius:12px;background:#fff;border:0;box-shadow:inset 0 0 0 1px var(--line);cursor:pointer;font:500 15px/1 var(--b);color:var(--ink);transition:box-shadow .15s}
+.radd:hover{box-shadow:inset 0 0 0 1px var(--ink3)}
+.radd:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.radd i{font-style:normal;color:var(--acc);font-weight:700;margin-right:4px}
+.rlist{display:grid;gap:8px;margin-top:12px}
+.rlist:empty{display:none}
+.rrow{display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px;background:#fff;border-radius:12px;padding:10px 10px 10px 14px;box-shadow:inset 0 0 0 1.5px var(--acc)}
+.rrow b{flex:1 1 120px;font-weight:600;font-size:15px}
+.rrow .dims{display:flex;align-items:center;gap:6px;color:var(--ink2);font-size:15px}
+.rrow input{width:76px;border:0;box-shadow:inset 0 0 0 1px var(--line);border-radius:10px;padding:11px 8px;font-size:16px;text-align:center;outline:none}
+.rrow input:focus{box-shadow:inset 0 0 0 2px var(--blue)}
+.rrow .m2{min-width:64px;text-align:right;font-weight:600;font-size:15px}
+.rrow .x{background:none;border:0;cursor:pointer;color:var(--ink3);font-size:22px;line-height:1;padding:6px 8px;border-radius:8px}
+.rrow .x:hover{color:var(--ink);background:var(--paper)}
+@media(max-width:560px){.rrow b{flex:1 1 0}.rrow .x{order:1}.rrow .dims{order:2}.rrow .m2{order:3;margin-left:auto}}
+.rsum{font-size:15px;color:var(--ink2);margin-top:10px}
+.rsum:empty{display:none}
+.rsum b{color:var(--ink)}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 @media(max-width:480px){.grid2{grid-template-columns:1fr}}
 .fld{margin-bottom:12px}
@@ -409,11 +427,20 @@ const CFG={
   pixelId:'1036804018869472',
   partner:'Elektrohouse'
 };
+const ROOMS=['Obývačka','Spálňa','Detská izba','Kuchyňa','Pracovňa','Iná miestnosť'];
 const S=[
  {id:'fotovoltika',name:'Fotovoltika',cat:'Energia',a:'#C77700',top:1,short:'Vlastná elektrina zo strechy, s batériou aj bez.',
   lead:'Navrhneme výkon podľa vašej spotreby a strechy. Panely namontujeme, zapojíme a odovzdáme s revíziou.',
   b:['Návrh podľa vašej skutočnej spotreby','S batériou aj so záložným napájaním','Pripravené na wallbox a tepelné čerpadlo','Montáž na kľúč od návrhu po spustenie'],
-  q:[['Typ objektu',['Rodinný dom','Firma alebo prevádzka','Chata','Trvalá ostrovná prevádzka','Iné']],['Mesačný účet za elektrinu',['do 50 €','50 až 100 €','100 až 200 €','nad 200 €']],['Spotreba za rok v kWh alebo EIC kód','text','napr. 4 500 kWh alebo EIC kód z faktúry'],['Chcete batériu?',['Áno','Nie','Poraďte mi']],['Strecha',['Šikmá','Rovná']]],r:['zalozne-napajanie','wallbox','elektricke-vykurovanie'],x:['Tepelné čerpadlo','Klimatizácia']},
+  q:[['Typ objektu',['Rodinný dom','Firma alebo prevádzka','Chata','Trvalá ostrovná prevádzka','Iné']],['Mesačný účet za elektrinu',['do 50 €','50 až 100 €','100 až 200 €','nad 200 €']],['Spotreba za rok v kWh alebo EIC kód','text','napr. 4 500 kWh alebo EIC kód z faktúry'],['Chcete batériu?',['Áno','Nie','Poraďte mi']],['Strecha',['Šikmá','Rovná']]],r:['zalozne-napajanie','wallbox','klimatizacia','tepelne-cerpadlo-vzduch-vzduch'],x:['Tepelné čerpadlo vzduch-voda']},
+ {id:'klimatizacia',name:'Klimatizácia',cat:'Klíma a kúrenie',a:'#0284C7',top:1,k:1,p:'',short:'Klimatizácia Kaisai s montážou od 860 €. Kúri aj chladí.',
+  lead:'Klimatizácia Kaisai kúri aj chladí. S montážou od 860 €. Naklikajte miestnosti s rozmermi a nezáväznú ponuku máte do 24 hodín.',
+  b:['Klimatizácia Kaisai s montážou od 860 €','V lete chladí, v zime kúri','Montáž do bytu, domu aj firmy','Nezáväzná ponuka do 24 hodín'],
+  q:[['Ktoré miestnosti?','rooms'],['Objekt',['Byt','Rodinný dom','Firma alebo kancelária']],['Na čo ju chcete?',['Hlavne chladenie','Chladenie aj kúrenie']],['Kedy?',['Čo najskôr','Do mesiaca','Zatiaľ zisťujem cenu']]],r:['tepelne-cerpadlo-vzduch-vzduch','rozvadzace','fotovoltika']},
+ {id:'tepelne-cerpadlo-vzduch-vzduch',name:'Tepelné čerpadlo vzduch-vzduch',cat:'Klíma a kúrenie',a:'#C2410C',k:1,p:'',short:'Kúrenie teplom z vonkajšieho vzduchu. V lete aj chladí.',
+  lead:'Tepelné čerpadlo vzduch-vzduch berie väčšinu tepla z vonkajšieho vzduchu. Z 1 kWh elektriny urobí 3 až 4 kWh tepla. V lete tá istá jednotka chladí.',
+  b:['Z 1 kWh elektriny 3 až 4 kWh tepla','Kúri v zime, chladí v lete','Hlavné aj doplnkové kúrenie','Dobre sa dopĺňa s fotovoltikou'],
+  q:[['Objekt',['Byt','Rodinný dom','Chata','Firma']],['Ktoré miestnosti chcete vykúriť?','rooms'],['Čím kúrite teraz?',['Plyn','Elektrina','Tuhé palivo','Iné']],['Má to byť hlavné kúrenie?',['Áno, hlavné','Doplnkové','Poraďte mi']]],r:['klimatizacia','fotovoltika','rozvadzace']},
  {id:'zalozne-napajanie',name:'Záložné napájanie',cat:'Energia',a:'#A15C07',short:'Batéria, ktorá drží dom v chode, keď vypadne prúd.',
   lead:'Keď vypadne prúd, dôležité okruhy bežia ďalej z batérie. Navrhneme, čo má fungovať, systém zapojíme a odovzdáme s revíziou.',
   b:['Kúrenie, chladnička aj internet počas výpadku','Samostatne aj s fotovoltikou','Návrh podľa toho, čo má fungovať','Montáž, nastavenie a revízia'],
@@ -475,7 +502,7 @@ const S=[
   b:['Rodinné domy aj firmy','Projekty fotovoltiky a prípojok','Konzultácia pred návrhom','Podklady pre realizáciu'],
   q:[['Pre čo?',['Rodinný dom','Firma','Fotovoltika','Prípojka']],['Fáza',['Pred povolením','Pred realizáciou','Zmena existujúceho']]],r:['nn-pripojka','elektroinstalacie','fotovoltika']}
 ];
-const CATS=['Všetko','Energia','Elektroinštalácie','Komfort','Bezpečnosť','Stavba a revízie'];
+const CATS=['Všetko','Klíma a kúrenie','Energia','Elektroinštalácie','Komfort','Bezpečnosť','Stavba a revízie'];
 const STORY=[
  null,
  {k:'Krok 1 z 5',t:'Fotovoltika',p:'Buďte sebestační – vyrábajte energiu a skladujte ju v batériách.',id:'fotovoltika',l:'Dopyt na fotovoltiku'},
@@ -540,7 +567,9 @@ function showService(s){
  $('#svBens').innerHTML=s.b.map(b=>`<li>${CHECK}<span>${b}</span></li>`).join('');
  $('#fTitle').textContent=`Dopyt: ${s.name.toLowerCase()}`;
  const rel=(s.r||[]).map(id=>S.find(x=>x.id===id)).filter(Boolean);
- let h='';s.q.forEach((q,i)=>{h+=q[1]==='text'
+ let h='';s.q.forEach((q,i)=>{h+=q[1]==='rooms'
+  ?`<fieldset class="fq rq" data-i="${i}"><legend>${q[0]} <small>(kliknite na miestnosť a doplňte rozmery)</small></legend><div class="opts">${ROOMS.map(t=>`<button type="button" class="radd" data-t="${t}"><i>+</i>${t}</button>`).join('')}</div><div class="rlist" id="rl${i}"></div><p class="rsum" id="rs${i}" aria-live="polite"></p></fieldset>`
+  :q[1]==='text'
   ?`<div class="fld fq"><label for="q${i}">${q[0]} <span>(nepovinné)</span></label><input id="q${i}" name="q${i}" placeholder="${q[2]||''}" maxlength="80"></div>`
   :`<fieldset class="fq"><legend>${q[0]}${q[2]?' <small>(môžete viac)</small>':''}</legend><div class="opts">${q[1].map(o=>`<label class="opt"><input type="${q[2]?'checkbox':'radio'}" name="q${i}" value="${o}"><span>${o}</span></label>`).join('')}</div></fieldset>`});
  const aj=[...rel.map(r=>r.name),...(s.x||[])];
@@ -549,6 +578,19 @@ function showService(s){
  $('#svRel').innerHTML=rel.length?`<h3>Často spolu s touto službou</h3><div>${rel.map(r=>`<a href="#/${r.id}">${r.name}</a>`).join('')}</div>`:'';
  track('ViewContent',{content_name:s.id});
 }
+/* výber miestností s rozmermi (klíma, tepelné čerpadlo vzduch-vzduch) */
+const cislo=v=>{const n=parseFloat(String(v).replace(',','.').replace(/[^\d.]/g,''));return n>0&&n<100?n:0};
+const fm=n=>n.toLocaleString('sk-SK',{maximumFractionDigits:1});
+function izby(fs){return $$('.rrow',fs).map(r=>{const[d,s]=$$('input',r).map(x=>cislo(x.value));return{n:$('b',r).textContent,d,s,m:d&&s?Math.round(d*s*10)/10:0}})}
+function prepocet(fs){let sum=0;$$('.rrow',fs).forEach(r=>{const[d,s]=$$('input',r).map(x=>cislo(x.value));const m=d&&s?Math.round(d*s*10)/10:0;sum+=m;$('.m2',r).textContent=m?fm(m)+' m²':''});
+ const z=izby(fs),rs=$('.rsum',fs);rs.innerHTML=z.length?`${z.length===1?'1 miestnosť':z.length+(z.length<5?' miestnosti':' miestností')}${sum?` · spolu <b>${fm(Math.round(sum*10)/10)} m²</b>`:''}`:''}
+$('#fqs').addEventListener('click',e=>{const fs=e.target.closest('.rq');if(!fs)return;
+ const add=e.target.closest('.radd'),x=e.target.closest('.x');
+ if(add){const rl=$('.rlist',fs);if($$('.rrow',rl).length>=12)return;const t=add.dataset.t,n=$$('.rrow',rl).filter(r=>r.dataset.t===t).length+1,nm=n>1?`${t} ${n}`:t;
+  rl.insertAdjacentHTML('beforeend',`<div class="rrow" data-t="${t}"><b>${nm}</b><span class="dims"><input inputmode="decimal" maxlength="5" placeholder="dĺžka" aria-label="${nm}: dĺžka v metroch"> × <input inputmode="decimal" maxlength="5" placeholder="šírka" aria-label="${nm}: šírka v metroch"> m</span><span class="m2"></span><button type="button" class="x" aria-label="Odobrať ${nm}">×</button></div>`);
+  $$('.rrow',rl).pop().querySelector('input').focus();prepocet(fs)}
+ if(x){x.closest('.rrow').remove();prepocet(fs)}});
+$('#fqs').addEventListener('input',e=>{const fs=e.target.closest('.rq');if(fs)prepocet(fs)});
 let pend=null;
 function showHome(){document.documentElement.style.setProperty('--acc','#0B66BD');document.title='Elektro služby pre dom a byt | Národný inštitút efektivity';cur=null;
  $('#svc').classList.remove('on');$('#home').classList.add('on');
@@ -570,10 +612,16 @@ $('#form').addEventListener('submit',async e=>{
  for(const[k,m]of[['meno','Doplňte meno a priezvisko.'],['telefon','Doplňte telefón, aby sme vám vedeli zavolať.'],['mesto','Doplňte obec alebo mesto.']]){if(!f[k].value.trim()){err.textContent=m;f[k].focus();return}}
  if(f.telefon.value.replace(/\D/g,'').length<9){err.textContent='Telefónne číslo má mať aspoň 9 číslic.';f.telefon.focus();return}
  if(f.email.value&&!/^\S+@\S+\.\S+$/.test(f.email.value)){err.textContent='E-mail nie je v správnom tvare.';f.email.focus();return}
- const odp=s.q.map((q,i)=>{const v=q[1]==='text'?f[`q${i}`].value.trim():$$(`[name="q${i}"]:checked`,f).map(x=>x.value).join(', ');return v?`${q[0]}: ${v}`:''}).filter(Boolean);
+ const fsR=$('.rq',f),zoz=fsR?izby(fsR):[],spolu=Math.round(zoz.reduce((a,z)=>a+z.m,0)*10)/10;
+ const izbyTxt=zoz.map(z=>z.d&&z.s?`${z.n} ${fm(z.d)} × ${fm(z.s)} m (${fm(z.m)} m²)`:`${z.n} (bez rozmerov)`).join(', ')+(spolu?`; spolu ${fm(spolu)} m²`:'');
+ const odp=s.q.map((q,i)=>{const v=q[1]==='rooms'?izbyTxt:q[1]==='text'?f[`q${i}`].value.trim():$$(`[name="q${i}"]:checked`,f).map(x=>x.value).join(', ');return v?`${q[0]}: ${v}`:''}).filter(Boolean);
  const aj=$$('[name="aj"]:checked',f).map(x=>x.value).join(', ');
  const eventId='eh-'+Date.now()+'-'+Math.random().toString(36).slice(2,8);
- const payload={subject:`Nový dopyt: ${s.name} (elektro)`,from_name:'Národný inštitút efektivity – elektro',sluzba:s.name,sluzba_id:s.id,partner:CFG.partner,typ_dopytu:'elektro',
+ // klíma a tepelné čerpadlo vzduch-vzduch: počet jednotiek = počet naklikaných miestností
+ const kusy=zoz.length||1;
+ const payload={subject:`Nový dopyt: ${s.name}${s.k?'':' (elektro)'}`,from_name:'Národný inštitút efektivity'+(s.k?'':' – elektro'),sluzba:s.name,sluzba_id:s.id,partner:s.p??CFG.partner,typ_dopytu:'elektro',
+  // miestnosti po riadkoch bez súčtu – CRM si m² sčíta samo (totalM2)
+  ...(s.k?{pocet_klimatizacii:kusy,pocet_miestnosti:kusy,miestnosti:zoz.map(z=>z.d&&z.s?`${z.n} ${fm(z.d)} × ${fm(z.s)} m – ${fm(z.m)} m²`:z.n).join('\n')}:{}),
   odpovede:odp.join(' | '),zaujem_aj_o:aj,meno:f.meno.value.trim(),telefon:f.telefon.value.trim(),email:f.email.value.trim(),mesto:f.mesto.value.trim(),poznamka:f.poznamka.value.trim(),event_id:eventId,...povod(),...metaId(),suhlas_meta:(()=>{try{return localStorage.getItem('bs_ck')==='y'?'ano':'nie'}catch(e){return 'nie'}})(),
   suhlas:'Informovany o spracuvani udajov na vybavenie dopytu (cl. 6 ods. 1 pism. b GDPR), nief.sk/ochrana-osobnych-udajov.html'};
  const btn=$('#fbtn');btn.disabled=true;btn.textContent='Odosielam';
@@ -583,7 +631,7 @@ $('#form').addEventListener('submit',async e=>{
  try{const r=await fetch(CFG.crmEndpoint,{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams(crm).toString(),keepalive:true});
   const d=await r.json().catch(()=>({}));ok=r.ok&&d.ok!==false}catch(x){ok=false}
  if(ok){
-  f.style.display='none';const dn=$('#done');dn.classList.add('on');dn.focus();$('#formBox').scrollIntoView({behavior:'smooth',block:'center'});track('Lead',{content_name:s.id,content_category:'elektro'},eventId)
+  f.style.display='none';const dn=$('#done');dn.classList.add('on');dn.focus();$('#formBox').scrollIntoView({behavior:'smooth',block:'center'});track('Lead',{content_name:s.id,content_category:s.k?'klima':'elektro'},eventId)
  }else{btn.disabled=false;btn.textContent='Odoslať znova';err.innerHTML='Dopyt sa nepodarilo odoslať. Skúste to znova alebo zavolajte na <a href="tel:+421940984016">0940 984 016</a>.'}
 });
 
